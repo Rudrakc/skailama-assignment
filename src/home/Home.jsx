@@ -66,7 +66,7 @@ function Home() {
       </div>
       <div className="h-[90%]">
         <div className="h-full">
-          {projects.length == 0 ? (
+          {projects.length === 0 ? (
             <div className="h-full flex justify-center items-center">
               <Default handleOpenModal={handleOpenModal} />
             </div>
