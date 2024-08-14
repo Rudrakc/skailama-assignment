@@ -19,6 +19,34 @@ function Home() {
       title: "Project 3",
       episodes: 1,
     },
+    {
+      title: "Project 4",
+      episodes: 3,
+    },
+    {
+      title: "Project 5",
+      episodes: 2,
+    },
+    {
+      title: "Project 6",
+      episodes: 6,
+    },
+    {
+      title: "Project 7",
+      episodes: 7,
+    },
+    {
+      title: "Project 8",
+      episodes: 8,
+    },
+    {
+      title: "Project 9",
+      episodes: 9,
+    },
+    {
+      title: "Project 10",
+      episodes: 10,
+    },
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -2,7 +2,7 @@ import React from "react";
 
 function ProjectCard({ title, episodes, lastedited }) {
   return (
-    <div className=" max-w-72 flex items-center bg-white border border-gray-300 rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow duration-300">
+    <div className=" max-w-72 flex items-center bg-white border border-gray-300 rounded-2xl p-4 shadow-md hover:shadow-lg transition-shadow duration-300">
       {/* Project Icon */}
       <img src={`https://avatar.iran.liara.run/username?username=${title}&background=f7a01d&color=FFFFFF`}  className="w-16 h-16 flex items-center justify-center bg-[#f7a01d] rounded-lg " />
 
