@@ -71,7 +71,7 @@ function Home() {
               <Default handleOpenModal={handleOpenModal} />
             </div>
           ) : (
-            <ProjectList projects={projects} />
+            <ProjectList projects={projects} handleOpenModal={handleOpenModal} />
           )}
           <Modal
             isOpen={isModalOpen}
