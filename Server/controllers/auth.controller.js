@@ -48,13 +48,14 @@ export const login = async (req, res) => {
 
 export const validateToken = async (req, res) => {
   try {
-    const {token} = req.body;
+    const { token } = req.body;
     const decodedData = jwt.verify(token, Env.JWT_SECRET);
     if (!decodedData) {
       return res.status(401).json({ message: "Invalid Token" });
     }
-    req.status(200).json({ message: "Token Validation Successfull" });
+    res.status(200).json({ message: "Token Validation Successfull" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
