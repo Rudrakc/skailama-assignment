@@ -1,10 +1,8 @@
-// Importing modules using ES6 syntax
 import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
 import Env from "../../env.js";
 import jwt from "jsonwebtoken";
 
-// Define your functions
 const signup = async (req, res) => {
   try {
     const { firstName, lastName, userName, email, password } = req.body;
@@ -62,5 +60,4 @@ const validateToken = async (req, res) => {
   }
 };
 
-// Exporting using CommonJS syntax
 export { signup, login, validateToken };
