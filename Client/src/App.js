@@ -19,11 +19,11 @@ function App() {
         <>
           <Route
             path="/"
-            element={user!==null ? <Home /> : <Navigate to="/login" />}
+            element={(user && <Home />) || <Navigate to="/login" />}
           />
           <Route
             path="/login"
-            element={user===null ? <Login /> : <Navigate to="/" />}
+            element={(!user && <Login />) || <Navigate to="/" />}
           />
           <Route path="/projects/:projectId" element={<ProjectPage />}>
             <Route index element={<AddYourPodcasts />} />
