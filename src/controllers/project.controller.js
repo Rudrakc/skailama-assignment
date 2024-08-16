@@ -1,7 +1,7 @@
 import projectModel from "../models/projectModel.js";
 import userModel from "../models/userModel.js";
 
-export const getProjectById = async (req, res) => {
+const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
     const project = await projectModel.findById(id);
@@ -19,7 +19,7 @@ export const getProjectById = async (req, res) => {
   }
 };
 
-export const createProject = async (req, res) => {
+const createProject = async (req, res) => {
   try {
     const { name, owner } = req.body;
     const project = await projectModel.create({
@@ -43,3 +43,5 @@ export const createProject = async (req, res) => {
     });
   }
 };
+
+export { getProjectById, createProject };

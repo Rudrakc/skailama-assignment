@@ -1,9 +1,11 @@
+// Importing modules using ES6 syntax
 import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
-import Env from "../env.js";
+import Env from "../../env.js";
 import jwt from "jsonwebtoken";
 
-export const signup = async (req, res) => {
+// Define your functions
+const signup = async (req, res) => {
   try {
     const { firstName, lastName, userName, email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
@@ -23,7 +25,7 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { userName, password } = req.body;
     const user = await userModel.findOne({ userName });
@@ -46,16 +48,19 @@ export const login = async (req, res) => {
   }
 };
 
-export const validateToken = async (req, res) => {
+const validateToken = async (req, res) => {
   try {
     const { token } = req.body;
     const decodedData = jwt.verify(token, Env.JWT_SECRET);
     if (!decodedData) {
       return res.status(401).json({ message: "Invalid Token" });
     }
-    res.status(200).json({ message: "Token Validation Successfull" });
+    res.status(200).json({ message: "Token Validation Successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+// Exporting using CommonJS syntax
+export { signup, login, validateToken };

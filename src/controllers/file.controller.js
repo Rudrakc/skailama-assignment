@@ -1,7 +1,7 @@
 import fileModel from "../models/fileModel.js";
 import projectModel from "../models/projectModel.js";
 
-export const createFile = async (req, res) => {
+const createFile = async (req, res) => {
   try {
     const { name, owner, projectId, content } = req.body;
     const file = await fileModel.create({
@@ -28,7 +28,7 @@ export const createFile = async (req, res) => {
   }
 };
 
-export const getFilesById = async (req, res) => {
+const getFilesById = async (req, res) => {
   try {
     const { fileId } = req.params;
     const file = await fileModel.findById(fileId);
@@ -46,7 +46,7 @@ export const getFilesById = async (req, res) => {
   }
 };
 
-export const updateFile = async (req, res) => {
+const updateFile = async (req, res) => {
   try {
     const { fileId } = req.params;
     const { content } = req.body;
@@ -71,3 +71,5 @@ export const updateFile = async (req, res) => {
     });
   }
 };
+
+export { createFile, getFilesById, updateFile };
