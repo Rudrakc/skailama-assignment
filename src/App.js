@@ -30,12 +30,12 @@ function App() {
             path="/login"
             element={(!user && <Login />) || <Navigate to="/" />}
           />
-          <Route path="/projects/:projectId" element={<ProjectPage />}>
+          <Route path="/project/:projectId" element={<ProjectPage />}>
             <Route index element={<AddYourPodcasts />} />
             <Route path="file/:fileId" element={<Transcript />} />
             <Route path="accountSetting" element={<AccountSetting />} />
             <Route path="comingSoon" element={<ComingSoon />} />
-            <Route path="*" element={<Navigate to="/projects/:projectId" />} />
+            <Route path="*" element={<Navigate to="/project/:projectId" />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </>

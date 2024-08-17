@@ -14,7 +14,7 @@ function Sidebar() {
   const { projectId } = useParams();
   const [currentScreen, setCurrentScreen] = useState("Add your Podcast(s)");
   const { user } = useStore();
-  const { username, email } = user;
+  const { userName, email } = user;
 
   const handleButtonClick = (label) => {
     setCurrentScreen(label);
@@ -24,7 +24,7 @@ function Sidebar() {
       <div>
         <ReactSVG src={Logo} className="scale-[0.65]" />
         <div className=" flex flex-col justify-center items-center mt-4">
-          <Link to={`/projects/${projectId}`} className="w-full">
+          <Link to={`/project/${projectId}`} className="w-full">
             <SidebarButton
               icon={<HiPlus />}
               label="Add your Podcast(s)"
@@ -83,8 +83,8 @@ function Sidebar() {
                 className="w-16 h-16"
               />
               <div className="text-left pl-3">
-                <p className="max-w-40">{username}</p>
-                <p className="max-w-40">{email}</p>
+                <p className="max-w-20 text-base">{userName}</p>
+                <p className="max-w-20 text-xs">{email}</p>
               </div>
             </div>
           </Link>

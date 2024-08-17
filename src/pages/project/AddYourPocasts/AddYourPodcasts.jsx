@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Youtube from "../../../assets/ProjectPage/Youtube.svg";
 import RSS from "../../../assets/ProjectPage/RSSFeed.svg";
@@ -7,30 +7,18 @@ import DefaultBanner from "./DefaultBanner";
 import TranscriptList from "./TranscriptList";
 import Modal from "../../../components/Modal";
 import TextBox from "../../../components/TextBox";
+import axios from "axios";
+import { useParams } from "react-router";
+import useStore from "../../../hooks/useStrore";
 
 function AddYourPodcasts() {
-  const filesData = [
-    {
-      id: 1,
-      name: "THE SIDEPOD S2 EPISODE 15",
-      uploadDate: "25 Oct 23 | 09:04",
-    },
-    {
-      id: 2,
-      name: "THE SIDEPOD S2 EPISODE 17",
-      uploadDate: "27 Oct 23 | 11:08",
-    },
-    {
-      id: 3,
-      name: "THE SIDEPOD S2 EPISODE 20",
-      uploadDate: "31 Oct 23 | 20:28",
-    },
-  ];
-
+  const [filesData, setFilesData] = useState([]);
+  const { projectId } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [transcript, setTranscript] = useState("");
   const [title, setTitle] = useState("");
+  const { user } = useStore();
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -41,9 +29,30 @@ function AddYourPodcasts() {
   };
 
   const handleSubmit = () => {
-    // API call
-    setIsModalOpen(false);
+    console.log("Name: ", name);
+    console.log("Transcript: ", transcript);
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/file`, {
+        name,
+        content: transcript,
+        projectId,
+        owner: user._id,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setFilesData([...filesData, response.data._id]);
+        handleCloseModal();
+      });
   };
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/project/file/${projectId}`)
+      .then((response) => {
+        console.log(response.data);
+        setFilesData(response.data);
+      });
+  }, []);
 
   return (
     <div className=" flex flex-col w-full px-16  p-6">
@@ -80,7 +89,7 @@ function AddYourPodcasts() {
       {filesData.length === 0 ? (
         <DefaultBanner />
       ) : (
-        <TranscriptList files={filesData} />
+        <TranscriptList filesList={filesData} />
       )}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={title}>
         <div className="flex flex-col gap-6">

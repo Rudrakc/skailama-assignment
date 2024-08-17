@@ -10,10 +10,10 @@ import useStore from "../../hooks/useStrore";
 function Home() {
   const { user } = useStore();
   const ownerId = user._id;
-  const userProjects = user.projects;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projectName, setprojectName] = useState("");
+  const [userProjects, setuserProjects] = useState(user.projects)
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -39,12 +39,31 @@ function Home() {
       );
       const newProject = response.data;
       console.log("New Project created:", newProject);
+      setuserProjects([...userProjects, newProject._id]);
       setprojectName("");
       handleCloseModal();
     } catch (error) {
       console.error("Error creating project:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchUserProjects = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/project/owner/${ownerId}`
+        );
+        setuserProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching user projects:", error);
+      }
+    };
+
+    fetchUserProjects();
+  }
+  , [createProject]);
+
+  
 
   return (
     <div className="h-screen">

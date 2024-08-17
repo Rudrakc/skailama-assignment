@@ -1,7 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const TranscriptList = ({ files }) => {
+const TranscriptList = ({ filesList }) => {
+  const [files, setFiles] = useState([]);
+  useEffect(() => {
+    const fetchFiles = async () => {
+      try {
+        const filesArray = await Promise.all(
+          filesList.map(async (fileId) => {
+            const response = await axios.get(
+              `${process.env.REACT_APP_API_URL}/file/${fileId}`
+            );
+            console.log("response.data", response.data);
+            return response.data;
+          })
+        );
+        setFiles(filesArray);
+      } catch (error) {
+        console.error("Error fetching files: ", error);
+      }
+    };
+    fetchFiles();
+  }, [filesList]);
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
@@ -27,14 +48,14 @@ const TranscriptList = ({ files }) => {
             <tr key={file.id} className="border-b ">
               <td className="px-4 py-4 text-sm text-gray-700">{index + 1}</td>
               <td className="text-sm text-gray-700">{file.name}</td>
-              <td className="text-sm text-gray-700">{file.uploadDate}</td>
+              <td className="text-sm text-gray-700">{file.creationDate}</td>
               <td className="px-4  py-4">
                 <span className="inline-block px-3 py-1 text-sm font-medium rounded-full bg-purple-200 text-purple-700">
                   Done
                 </span>
               </td>
               <td className="px-4  py-4">
-                <Link to={`file/${file.id}`}>
+                <Link to={`file/${file._id}`}>
                   <button className="text-blue-500 hover:underline mr-4">
                     View
                   </button>

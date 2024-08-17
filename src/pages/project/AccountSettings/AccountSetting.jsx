@@ -9,8 +9,8 @@ import { useNavigate } from "react-router";
 function AccountSetting() {
   const [isEditing, setIsEditing] = useState(false);
   const { user } = useStore();
-  const { username, email } = user;
-  const [userNameState, setUsername] = useState(username);
+  const { userName, email } = user;
+  const [userNameState, setUsername] = useState(userName);
   const navigate = useNavigate();
 
   const handleGoBack = () => {

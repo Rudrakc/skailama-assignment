@@ -20,7 +20,7 @@ function Modal({ isOpen, onClose, children, title }) {
       console.log("cleanup");
       console.log(isOpen);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   // If modal is not open, return null
   if (!isOpen) return null;

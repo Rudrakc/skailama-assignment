@@ -30,7 +30,7 @@ function ProjectList({ projects, handleOpenModal }) {
   }, [projects]);
 
   const handleProjectClick = (projectId) => {
-    navigate(`/projects/${projectId}`);
+    navigate(`/project/${projectId}`);
   };
 
   return (
