@@ -5,18 +5,25 @@ import TextBox from "../../../components/TextBox";
 import useStore from "../../../hooks/useStrore";
 import { useNavigate } from "react-router";
 
-
 function AccountSetting() {
   const [isEditing, setIsEditing] = useState(false);
-  const { user } = useStore();
+  const { user ,setUser} = useStore();
   const { userName, email } = user;
   const [userNameState, setUsername] = useState(userName);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate(-1);
-  }
-  
+  };
+
+  const handleEditUsername = () => {
+    if (userNameState.trim() !== userName) {
+      setUser({ ...user, userName: userNameState });
+      localStorage.setItem("user", JSON.stringify({ ...user, userName: userNameState }));
+    }
+    setIsEditing(false);
+  };
+
   return (
     <div className="h-full px-16">
       <div className="">
@@ -35,9 +42,19 @@ function AccountSetting() {
             alt="Profile"
           />
           <div className="flex justify-center items-end  gap-8 pl-4">
-            <TextBox label="Username" text={userNameState} isEditable={isEditing} setText={setUsername} />
+            <TextBox
+              label="Username"
+              text={userNameState}
+              isEditable={isEditing}
+              setText={setUsername}
+            />
             <TextBox label="Email" text={email} isEditable={false} />
-            <button className="bg-gray-700 hover:bg-gray-500 duration-200 text-white py-2 min-w-20 px-4 rounded-lg"  onClick={() => setIsEditing(!isEditing)}>{isEditing ? "Save" : "Edit"}</button>
+            <button
+              className="bg-gray-700 hover:bg-gray-500 duration-200 text-white py-2 min-w-20 px-4 rounded-lg"
+              onClick={isEditing ? handleEditUsername : () => setIsEditing(true)}
+            >
+              {isEditing ? "Save" : "Edit"}
+            </button>
           </div>
         </div>
         <h2 className="text-2xl text-left font-semibold text-gray-800 mb-4 mt">
