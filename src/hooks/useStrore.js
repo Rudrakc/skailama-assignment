@@ -7,6 +7,10 @@ const useStore = create((set) => ({
     set((state) => {
       // Update the state
       const newState = { ...state, user: User };
+
+      // Log the updated state
+      console.log("State after update:", newState);
+
       return newState;
     });
   },

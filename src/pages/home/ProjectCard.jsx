@@ -1,4 +1,5 @@
 import React from "react";
+import TimeAgo from 'react-timeago'
 
 function ProjectCard({ title, episodes, lastedited, onClick }) {
   return (
@@ -12,7 +13,9 @@ function ProjectCard({ title, episodes, lastedited, onClick }) {
           {title}
         </h3>
         <p className="text-gray-600 text-xs">{episodes} Episodes</p>
-        <p className="text-gray-400 text-sm mt-2">{lastedited}</p>
+        <p className="text-gray-400 text-sm mt-2">
+          <TimeAgo date={lastedited} />
+        </p>
       </div>
     </div>
   );

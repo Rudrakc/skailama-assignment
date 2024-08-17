@@ -11,7 +11,12 @@ import Transcript from "./pages/project/AddYourPocasts/Transcript";
 import useStore from "./hooks/useStrore";
 
 function App() {
-  const { user } = useStore();
+  const { user,setUser } = useStore();
+
+  const storedUser = localStorage.getItem("user");
+  if (storedUser && !user) {
+    setUser(JSON.parse(storedUser));
+  }
 
   return (
     <div className="App">

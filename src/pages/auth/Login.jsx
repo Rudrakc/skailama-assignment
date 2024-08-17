@@ -28,6 +28,7 @@ function Login() {
       .then((res) => {
         console.log("Login successful:", res.data);
         localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         const user = res.data.user;
         setUser(user);
       })
