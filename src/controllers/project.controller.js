@@ -44,4 +44,30 @@ const createProject = async (req, res) => {
   }
 };
 
-export { getProjectById, createProject };
+const getUsersPorjects = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await userModel.findById(userId);
+    const projects = user.projects;
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
+const getProjectsFiles = async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    const project = await projectModel.findById(projectId);
+    const episodes = project.episodes;
+    res.status(200).json(episodes);
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export { getProjectById, createProject, getUsersPorjects, getProjectsFiles };
