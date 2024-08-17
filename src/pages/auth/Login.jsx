@@ -66,8 +66,8 @@ function Login() {
         </div>
         <div className="w-[70%] mt-8">
           <TextBox
-            type={"email"}
-            placeholder={"Email Address"}
+            type={"text"}
+            placeholder={"Username"}
             text={email}
             isEditable={true}
             setText={setEmail}

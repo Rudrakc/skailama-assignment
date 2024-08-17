@@ -87,7 +87,12 @@ function AddYourPodcasts() {
         />
       </div>
       {filesData.length === 0 ? (
-        <DefaultBanner />
+        <DefaultBanner
+          onClick={() => {
+            handleOpenModal();
+            setTitle("Upload from Files");
+          }}
+        />
       ) : (
         <TranscriptList filesList={filesData} />
       )}

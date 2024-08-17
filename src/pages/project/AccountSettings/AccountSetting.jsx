@@ -65,7 +65,7 @@ function AccountSetting() {
             Oops! You don’t have any active plans.{" "}
             <span className="font-bold">Upgrade now!</span>
           </span>
-          <Button className={"mt-0"}>Upgrade</Button>
+          <Button className={"!mt-0"}>Upgrade</Button>
         </div>
       </div>
     </div>

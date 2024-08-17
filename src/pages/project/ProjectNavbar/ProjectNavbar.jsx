@@ -23,6 +23,7 @@ function ProjectNavbar() {
   const handleLogout = () => {
     console.log("Logout clicked");
     setUser(null);
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
