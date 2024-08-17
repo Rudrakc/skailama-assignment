@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 import Waves from "../../assets/login_waves.svg";
 import LogoWithText from "../../assets/QuesLogo.svg";
 import Logo from "../../assets/logo.svg";
-import TextField from "./TextField";
 import Button from "../../components/Button";
+import TextBox from "../../components/TextBox";
+import axios from "axios";
+import useStore from "../../hooks/useStrore";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setUser } = useStore();
+
+  const handleLogin = () => {
+    console.log("Clicked");
+    if (!email || !password) {
+      console.log("Please enter both email and password");
+      return;
+    }
+
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
+        userName: email,
+        password: password,
+      })
+      .then((res) => {
+        console.log("Login successful:", res.data);
+        localStorage.setItem("authToken", res.data.token);
+        const user = res.data.user;
+        setUser(user);
+      })
+      .catch((err) => {
+        console.log("Login error:", err.message);
+      });
+  };
+
   return (
     <div className="w-screen h-screen flex items-center">
       <div className="w-2/3 h-full contain-content  bg-gradient-to-bl from-[#C854FF] to-[#3A0B63] relative flex">
@@ -35,21 +64,40 @@ function Login() {
           </div>
         </div>
         <div className="w-[70%] mt-8">
-          <TextField placeholder={"Email Address"} />
-          <TextField placeholder={"Password"} />
+          <TextBox
+            type={"email"}
+            placeholder={"Email Address"}
+            text={email}
+            isEditable={true}
+            setText={setEmail}
+            className={
+              "w-full px-4 py-4 mt-6 border bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            }
+          />
+          <TextBox
+            type={"password"}
+            placeholder={"Password"}
+            text={password}
+            isEditable={true}
+            setText={setPassword}
+            className={
+              "w-full px-4 py-4 mt-6 border bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+            }
+          />
+
           {/* Remember me and Forgot password */}
           <div className="flex justify-between mt-6 text-sm text-gray-600">
             <label className="flex items-center">
               <input type="checkbox" className="mr-2" />
               Remember me
             </label>
-            <a className="text-blue-500">
-              Forgot password?
-            </a>
+            <a className="text-blue-500">Forgot password?</a>
           </div>
 
           {/* Login Button */}
-          <Button className={"w-full"}>Login</Button>
+          <Button onClick={handleLogin} className={"w-full"}>
+            Login
+          </Button>
 
           {/* Divider */}
           <div className="flex items-center justify-center mt-6">
@@ -71,9 +119,7 @@ function Login() {
           {/* Create Account */}
           <div className="mt-6 text-center text-sm text-gray-600">
             Don’t have an account?{" "}
-            <a className="text-blue-500">
-              Create Account
-            </a>
+            <a className="text-blue-500">Create Account</a>
           </div>
         </div>
       </div>

@@ -85,11 +85,15 @@ function AddYourPodcasts() {
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={title}>
         <div className="flex flex-col gap-6">
           <TextBox label={"Name"} isEditable={true} setText={setName}></TextBox>
-          <TextBox
-            label={"Transcript"}
-            isEditable={true}
-            setText={setTranscript}
-          ></TextBox>
+          <div className="flex flex-col">
+            <label className="text-left text-base font-medium text-gray-500">
+              Transcript
+            </label>
+            <textarea
+              className="mt-1 p-2 border border-gray-300 rounded-md  sm:text-sm focus:outline-none min-h-28"
+              onChange={(e) => setTranscript(e.target.value)}
+            ></textarea>
+          </div>
           <div className="flex justify-end">
             <button
               className="bg-gray-700 hover:bg-gray-500 duration-200 text-white py-2 min-w-20 px-4 rounded-lg"

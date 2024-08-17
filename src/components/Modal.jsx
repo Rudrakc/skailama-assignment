@@ -26,7 +26,7 @@ function Modal({ isOpen, onClose, children, title }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div className="z-20 fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
       <div
         ref={modalRef}
         className="bg-white rounded-2xl p-6 min-w-[550px] min-h-[250px] flex flex-col justify-around"
