@@ -2,6 +2,8 @@ import express from "express";
 import {
   createProject,
   getProjectById,
+  getUsersPorjects,
+  getProjectsFiles,
 } from "../controllers/project.controller.js";
 
 const router = express.Router();
